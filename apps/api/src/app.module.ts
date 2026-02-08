@@ -6,6 +6,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ConfigModule } from '@nestjs/config';
 import { DbSeederModule } from './modules/db-seeder/db-seeder.module';
 import { TickerDataEntity } from './modules/ticker-data/entities/ticker-data.entity';
+import { TickerDataModule } from './modules/ticker-data/ticker-data.module';
 
 @Module({
   imports: [
@@ -15,10 +16,11 @@ import { TickerDataEntity } from './modules/ticker-data/entities/ticker-data.ent
       type: 'postgres',
       url: process.env.DB_CONNECTION_STRING,
       autoLoadEntities: true,
-      synchronize: false, // TODO: MUST BE FALSE IN PROD ENV!
+      synchronize: false, // MUST BE FALSE IN PROD ENV!
       entities: [TickerDataEntity],
     }),
     DbSeederModule,
+    TickerDataModule,
   ],
   controllers: [AppController],
   providers: [AppService],
