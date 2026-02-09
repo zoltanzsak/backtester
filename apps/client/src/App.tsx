@@ -1,7 +1,14 @@
-import './App.css';
+import { RouterProvider } from '@tanstack/react-router';
+import { router } from './routes/routes.tsx';
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 function App() {
-  return <>Hello World!</>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
