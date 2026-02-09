@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TickerDataEntity } from '../ticker-data/entities/ticker-data.entity';
 import { transformCsvToTickerDataEntityArray } from '../../utils/transformers/initial-csv-to-tickerdata-entity';
-import { fetchYesterdaysData } from '../../utils/fetch-yesterdays-data';
 
 @Injectable()
 export class DbSeederService {
@@ -17,8 +16,6 @@ export class DbSeederService {
   async triggerSeed() {
     const isExist = await this.tickerDataRepository.exists();
     const hasData = Boolean(await this.tickerDataRepository.count());
-
-    this.logger.log('IE, HD', isExist, hasData);
 
     if (!hasData || !isExist) {
       const initialData = transformCsvToTickerDataEntityArray(
